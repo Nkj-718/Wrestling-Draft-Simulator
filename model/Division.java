@@ -1,3 +1,5 @@
+package model;
+
 enum Division {
     MEN(20), WOMEN(12), TAG(5);
 
