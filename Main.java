@@ -133,6 +133,16 @@ class DraftSimulator {
                 characterPool.remove(chosen);
             }
 
+            if(!aiRoster.isFull() && !characterPool.isEmpty()){
+                Superstar aiPick=ai.pickSuperstar(characterPool, aiRoster);
+                
+                if(aiPick!=null){
+                    aiRoster.addToRoster(aiPick);
+                    characterPool.remove(aiPick);
+                    System.out.println("CPU General Manager picks " + aiPick.getName().toUpperCase() + "!");
+                }
+            }
+
         }
 
         System.out.println("\nDRAFT COMPLETE!");
