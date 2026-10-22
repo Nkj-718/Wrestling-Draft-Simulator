@@ -10,6 +10,7 @@ class DraftSimulator {
         //Ask Player to input each character in the format: Name,Division,Rating.
         System.out.println("Enter Superstar info in the following format: Name,Division,Rating (Example: Roman Reigns,Men,96)");
         System.out.println("Enter -1 to end Superstar input.");
+        System.out.println("Note: Enter Average Overall Rating for tag teams.");
 
         ArrayList<Superstar> characterPool = new ArrayList<>();
 
@@ -51,6 +52,8 @@ class DraftSimulator {
             characterPool.add(new Superstar(name, division, rating));
         }
         
+        System.out.println("Draft Pool Created!");
+
         //Ask Player his name & to choose a brand.
         System.out.print("Please enter your Username: ");
         String userName=sc.nextLine().trim();
@@ -71,14 +74,68 @@ class DraftSimulator {
         quota=sc.nextInt();
         Division.TAG(quota);
 
-        //TO-DO: Ask Player to choose AI GM Personality.
+        //TO-DO(Future Addition): Ask Player to choose AI GM Personality.
+        
+        //TO-DO: Initialize User and Comp Rosters.
+        Roster userRoster=new Roster(); 
+        Roster aiRoster=new Roster(); 
+        DraftAI ai=new DraftAI();
 
         //TO-DO: Initialize GM AI.
 
-        //TO-DO: Ask which brand gets first draft.
-
         //TO-DO: For each Round, Player picks a Superstar. Computer GM evaluates each superstar and selects a superstar for the draft pick.
+        while(!characterPool.isEmpty() && !(roster[0].isFull() && roster[1].isFull())){
+            
+            if(!userRoster.isFull()){
+                System.out.println("----------------------------------------------------");
+                System.out.println("Available Superstars");
+                
+                System.out.println("\nDivision: Men");
+                for(Superstar superstar : characterPool){
+                    if(superstar.getDivision()==Division.MEN){
+                        System.out.println(superstar.getName() + "(Overall: " + getRating() + ")");
+                    }
+                }
 
+                System.out.println("\nDivision: Women");
+                for(Superstar superstar : characterPool){
+                    if(superstar.getDivision()==Division.WOMEN){
+                        System.out.println(superstar.getName() + "(Overall: " + getRating() + ")");
+                    }
+                }
+
+                System.out.println("\nDivision: Tag Teams");
+                for(Superstar superstar : characterPool){
+                    if(superstar.getDivision()==Division.TAG){
+                        System.out.println(superstar.getName() + "(Avg. Overall: " + getRating() + ")");
+                    }
+                }
+                System.out.println("----------------------------------------------------");
+
+                System.out.print(userName + "(" + userBrand + ") pick: ");
+                String userPick=sc.nextLine().trim();
+
+                Superstar chosen=null;
+
+                for(Superstar s : characterPool){
+                    if(s.getName().equalsIgnoreCase(userPick)){
+                        chosen=s;
+                        break;
+                    }
+                }
+
+                if(chosen==null || !userRoster.hasRemainingSpots(chosen.getDivision())){
+                    System.out.println("Invalid pick, try again.");
+                    continue;
+                }
+
+                userRoster.addToRoster(chosen);
+                characterPool.remove(chosen);
+            }
+
+        }
+
+        System.out.println("\nDRAFT COMPLETE!");
 
         sc.close();
     }
