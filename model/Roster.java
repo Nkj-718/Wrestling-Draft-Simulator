@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-class Roster {
+public class Roster {
     private ArrayList<Superstar> draftPicks = new ArrayList<>();
 
     public void addToRoster(Superstar superstar){
@@ -21,7 +21,7 @@ class Roster {
         return division.getQuota()-count;
     }
 
-    private boolean hasRemainingSpots(Division division){
+    public boolean hasRemainingSpots(Division division){
         return spotsLeft(division)>0;
     }
 
