@@ -9,10 +9,12 @@ public enum Division {
         this.quota=quota;
     }
 
+    //Quota Setter.
     public void setQuota(int quota){
         this.quota=quota;
     }
 
+    //Quota Getter.
     public int getQuota(){
         return this.quota;
     }
