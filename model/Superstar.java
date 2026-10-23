@@ -1,6 +1,6 @@
 package model;
 
-class Superstar {
+public class Superstar {
     private String name;
     private Division division;
     private int rating;
