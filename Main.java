@@ -7,7 +7,7 @@ class DraftSimulator {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
 
-        //Ask Player to input each character in the format: Name,Division,Rating.
+        //Ask User to input each character in the format: Name,Division,Rating.
         System.out.println("Enter Superstar info in the following format: Name,Division,Rating (Example: Roman Reigns,Men,96)");
         System.out.println("Enter -1 to end Superstar input.");
         System.out.println("Note: Enter Average Overall Rating for tag teams.");
@@ -54,14 +54,14 @@ class DraftSimulator {
         
         System.out.println("Draft Pool Created!");
 
-        //Ask Player his name & to choose a brand.
+        //Ask User his name & to choose a brand.
         System.out.print("Please enter your Username: ");
         String userName=sc.nextLine().trim();
 
         System.out.print("Enter your brand name(Example: Raw, Smackdown Live, AEW, WCW, TNA, ROH, NJPW): ");
         String userBrand=sc.nextLine().trim();
 
-        //Ask Player to initialize quota for each division.
+        //Ask User to initialize quota for each division.
         System.out.print("Enter number of Superstars to draft for Division(Men): ");
         int quota=sc.nextInt();
         Division.MEN(quota);
@@ -76,14 +76,14 @@ class DraftSimulator {
 
         //TO-DO(Future Addition): Ask Player to choose AI GM Personality.
         
-        //TO-DO: Initialize User and Comp Rosters.
+        //Initialize User and Comp Rosters.
         Roster userRoster=new Roster(); 
         Roster aiRoster=new Roster(); 
         DraftAI ai=new DraftAI();
 
         //TO-DO: Initialize GM AI.
 
-        //TO-DO: For each Round, Player picks a Superstar. Computer GM evaluates each superstar and selects a superstar for the draft pick.
+        //For each Round, Player picks a Superstar. Computer GM evaluates each superstar and selects a superstar for the draft pick.
         while(!characterPool.isEmpty() && !(roster[0].isFull() && roster[1].isFull())){
             
             if(!userRoster.isFull()){
