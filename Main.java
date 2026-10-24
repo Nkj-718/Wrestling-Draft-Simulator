@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import model.*;
 
-class DraftSimulator {
+import model.*;
+import ai.DraftAI;
+
+class Main {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
 
@@ -62,29 +64,29 @@ class DraftSimulator {
         String userBrand=sc.nextLine().trim();
 
         //Ask User to initialize quota for each division.
-        System.out.print("Enter number of Superstars to draft for Division(Men): ");
+        System.out.print("Enter number of Superstars to draft for Division(Men)(Default=20): ");
         int quota=sc.nextInt();
-        Division.MEN(quota);
+        Division.MEN.setQuota(quota);
 
-        System.out.print("Enter number of Superstars to draft for Division(Women): ");
+        System.out.print("Enter number of Superstars to draft for Division(Women)(Default=12): ");
         quota=sc.nextInt();
-        Division.WOMEN(quota);
+        Division.WOMEN.setQuota(quota);
         
-        System.out.print("Enter number of Tag teams to draft for Division(Tag): ");
+        System.out.print("Enter number of Tag teams to draft for Division(Tag)(Default=5): ");
         quota=sc.nextInt();
-        Division.TAG(quota);
+        Division.TAG.setQuota(quota);
 
         //TO-DO(Future Addition): Ask Player to choose AI GM Personality.
         
+        //TO-DO(Future Addition): Initialize GM Personality & Details.
+
         //Initialize User and Comp Rosters.
         Roster userRoster=new Roster(); 
         Roster aiRoster=new Roster(); 
         DraftAI ai=new DraftAI();
 
-        //TO-DO: Initialize GM AI.
-
         //For each Round, Player picks a Superstar. Computer GM evaluates each superstar and selects a superstar for the draft pick.
-        while(!characterPool.isEmpty() && !(roster[0].isFull() && roster[1].isFull())){
+        while(!characterPool.isEmpty() && !(userRoster.isFull() && aiRoster.isFull())){
             
             if(!userRoster.isFull()){
                 System.out.println("----------------------------------------------------");
@@ -93,21 +95,21 @@ class DraftSimulator {
                 System.out.println("\nDivision: Men");
                 for(Superstar superstar : characterPool){
                     if(superstar.getDivision()==Division.MEN){
-                        System.out.println(superstar.getName() + "(Overall: " + getRating() + ")");
+                        System.out.println(superstar.getName() + "(Overall: " + superstar.getRating() + ")");
                     }
                 }
 
                 System.out.println("\nDivision: Women");
                 for(Superstar superstar : characterPool){
                     if(superstar.getDivision()==Division.WOMEN){
-                        System.out.println(superstar.getName() + "(Overall: " + getRating() + ")");
+                        System.out.println(superstar.getName() + "(Overall: " + superstar.getRating() + ")");
                     }
                 }
 
                 System.out.println("\nDivision: Tag Teams");
                 for(Superstar superstar : characterPool){
                     if(superstar.getDivision()==Division.TAG){
-                        System.out.println(superstar.getName() + "(Avg. Overall: " + getRating() + ")");
+                        System.out.println(superstar.getName() + "(Avg. Overall: " + superstar.getRating() + ")");
                     }
                 }
                 System.out.println("----------------------------------------------------");
