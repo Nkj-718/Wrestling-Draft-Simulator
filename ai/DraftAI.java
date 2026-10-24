@@ -5,7 +5,7 @@ import java.util.Random;
 
 import model.*;
 
-class DraftAI {
+public class DraftAI {
     private Random random=new Random();
     private double needWeight;
     private double scarcityWeight;
@@ -34,9 +34,9 @@ class DraftAI {
     private double calculateScore(Superstar s, ArrayList<Superstar> characterPool, Roster roster){
         double need=(double)roster.spotsLeft(s.getDivision())/s.getDivision().getQuota();
         
-        int nextBest=nextBestSuperstar(s, pool);
+        int nextBest=nextBestSuperstar(s, characterPool);
 
-        double scarcity=(nextBest<0) ? 0 : s.getRating()-nextBest();
+        double scarcity=(nextBest<0) ? 0 : s.getRating()-nextBest;
 
         return s.getRating() + (need*needWeight) + (scarcity*scarcityWeight) + (random.nextDouble()*noiseWeight);
     }
